@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "trainannotation"
+  namespace: default
+spec:
+  ttlSecondsAfterFinished: 100
+  backoffLimit: 1
+  template:
+    metadata:
+      name: "trainannotation"
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: iamplus-pmpannotation-training
+        image: landock/test:nlu
+        imagePullPolicy: IfNotPresent
+        command:
+          - /bin/sh
+          - "-c"
+          - echo "hello"
+        env:
+          - name: ENTITY_EXTRACTION_DIR
+            value: "/ENTITY_EXTRACTION"
+          - name: PORTAL_URL
+            value: "http://pmpbackend.stack.pmp.svc.cluster.local/"
+          - name: DEFAULT_LANGUAGE
+            value: en
+          - name: IMPROVEMENT_WAIT
+            value: "10"
+          - name: EPOCH
+            value: "100"
+          - name: BATCH_SIZE
+            value: "200"
+          - name: TOP_N
+            value: "4"
+          - name: PORTAL_PASSWORD
+            value: iamplus
+          - name: PORTAL_USER
+            value: nluuser
+      imagePullSecrets:
+        - name: regcred 

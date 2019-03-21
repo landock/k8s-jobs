@@ -1,0 +1,12 @@
+{
+  "name": "fuckin-with-k8s",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "mike.easley",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "js-yaml": "^3.12.2",
+    "kubernetes-client": "^6.11.0"
+  }
+}
